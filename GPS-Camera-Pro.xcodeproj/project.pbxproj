@@ -75,6 +75,7 @@
 		CE8E31AD2F798D63007AAFD5 /* DragHintOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31A92F798D63007AAFD5 /* DragHintOverlay.swift */; };
 		CE8E31AE2F798D63007AAFD5 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31A72F798D63007AAFD5 /* CameraPreviewView.swift */; };
 		CE8E31AF2F798D63007AAFD5 /* CameraBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31A62F798D63007AAFD5 /* CameraBottomBar.swift */; };
+		CE8E31B12F79AAC2007AAFD5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE8E31B02F79AAC2007AAFD5 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -147,6 +148,7 @@
 		CE8E31A82F798D63007AAFD5 /* CameraTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTopBar.swift; sourceTree = "<group>"; };
 		CE8E31A92F798D63007AAFD5 /* DragHintOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragHintOverlay.swift; sourceTree = "<group>"; };
 		CE8E31AA2F798D63007AAFD5 /* GeotagLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeotagLabelView.swift; sourceTree = "<group>"; };
+		CE8E31B02F79AAC2007AAFD5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +188,7 @@
 				CE8E318E2F78FD90007AAFD5 /* UI */,
 				CE8E310E2F78EF8C007AAFD5 /* Features */,
 				CE1174D12F744E78005CD77A /* Resources */,
+				CE8E31B02F79AAC2007AAFD5 /* LaunchScreen.storyboard */,
 			);
 			path = "GPS-Camera-Pro";
 			sourceTree = "<group>";
@@ -606,6 +609,7 @@
 				CE8E31702F78F5F2007AAFD5 /* Poppins-BoldItalic.ttf in Resources */,
 				CE8E31712F78F5F2007AAFD5 /* Poppins-Black.ttf in Resources */,
 				CE8E31722F78F5F2007AAFD5 /* Poppins-Italic.ttf in Resources */,
+				CE8E31B12F79AAC2007AAFD5 /* LaunchScreen.storyboard in Resources */,
 				CE8E31732F78F5F2007AAFD5 /* Figtree-Italic.ttf in Resources */,
 				CE8E31752F78F5F2007AAFD5 /* Figtree-Light.ttf in Resources */,
 				CE8E31762F78F5F2007AAFD5 /* Figtree-Regular.ttf in Resources */,

@@ -49,7 +49,7 @@ struct CameraBottomBar: View {
                     .padding(.vertical, 8)
                     .background(
                         selectedMode == mode
-                        ? Capsule().fill(Color.white.opacity(0.2))
+                        ? Capsule().fill(AppTheme.Colors.primary.opacity(0.8))
                         : Capsule().fill(Color.clear)
                     )
                 }
@@ -88,7 +88,7 @@ struct CameraBottomBar: View {
                             LinearGradient(
                                 colors: selectedMode == .photo
                                     ? [.white, .white]
-                                    : [.red, .red.opacity(0.8)],
+                                    : [AppTheme.Colors.primary, AppTheme.Colors.primary.opacity(0.8)],
                                 startPoint: .top,
                                 endPoint: .bottom
                             )

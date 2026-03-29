@@ -66,7 +66,7 @@ struct GeotagLabelView: View {
                 // Date/Time
                 Text(locationCard.dateTime)
                     .font(.customFont(.semibold, size: 12))
-                    .foregroundColor(Color(red: 0.2, green: 0.8, blue: 0.4))
+                    .foregroundColor(AppTheme.Colors.success)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -82,7 +82,7 @@ struct GeotagLabelView: View {
                     // Small pin icon
                     Image(systemName: "mappin.circle.fill")
                         .font(.system(size: 16))
-                        .foregroundColor(.red)
+                        .foregroundColor(AppTheme.Colors.primary)
                         .background(Circle().fill(.white).frame(width: 14, height: 14))
                         .offset(x: 4, y: -4)
                 }
@@ -112,7 +112,7 @@ struct GeotagLabelView: View {
                 .padding(3)
                 .background(
                     RoundedRectangle(cornerRadius: 4)
-                        .fill(Color.blue.opacity(0.7))
+                        .fill(AppTheme.Colors.primary.opacity(0.7))
                 )
             
             Text(locationCard.appName)

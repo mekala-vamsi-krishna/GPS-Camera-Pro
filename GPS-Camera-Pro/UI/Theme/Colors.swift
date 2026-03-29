@@ -17,9 +17,9 @@ enum AppTheme {
         static let background = Color("BackgroundColor")
         static let textPrimary = Color("TextPrimary")
         static let textSecondary = Color("TextSecondary")
-        static let error =  Color("errorColor")
-        static let success = Color("successColor")
-        static let warning = Color("warningColor")
+        static let error =  Color("ErrorColor")
+        static let success = Color("SuccessColor")
+        static let warning = Color("WarningColor")
     }
    
     // MARK: - Corner Radius
