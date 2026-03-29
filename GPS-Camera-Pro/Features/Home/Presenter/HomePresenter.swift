@@ -44,6 +44,10 @@ final class HomePresenter: ObservableObject {
         interactor.onAppear()
     }
     
+    func onDisappear() {
+        interactor.onDisappear()
+    }
+    
     func capturePhoto(overlayRenderer: @escaping (UIImage) -> UIImage?) {
         isCaptureInProgress = true
         

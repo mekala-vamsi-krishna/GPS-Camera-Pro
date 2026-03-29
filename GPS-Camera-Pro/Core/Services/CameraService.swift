@@ -23,6 +23,7 @@ final class CameraService: NSObject, ObservableObject {
     let captureSession = AVCaptureSession()
     private let photoOutput = AVCapturePhotoOutput()
     private var currentCameraPosition: AVCaptureDevice.Position = .back
+    private var sessionIsConfigured = false
     
     // Completion callback for photo capture
     private var photoCaptureCompletion: ((UIImage?) -> Void)?
@@ -117,7 +118,7 @@ final class CameraService: NSObject, ObservableObject {
     // MARK: - Save to Photos
     
     func saveImageToGallery(_ image: UIImage, completion: @escaping (Bool, Error?) -> Void) {
-        PHPhotoLibrary.requestAuthorization(for: .addOnly) { status in
+        PHPhotoLibrary.requestAuthorization(for: .addOnly) { [weak self] status in
             guard status == .authorized || status == .limited else {
                 DispatchQueue.main.async {
                     completion(false, NSError(domain: "CameraService", code: -1,
@@ -143,6 +144,8 @@ final class CameraService: NSObject, ObservableObject {
     // MARK: - Private Methods
     
     private func setupSession() {
+        guard !sessionIsConfigured else { return }
+        
         captureSession.beginConfiguration()
         captureSession.sessionPreset = .photo
         
@@ -164,6 +167,7 @@ final class CameraService: NSObject, ObservableObject {
         }
         
         captureSession.commitConfiguration()
+        sessionIsConfigured = true
         startSession()
     }
     

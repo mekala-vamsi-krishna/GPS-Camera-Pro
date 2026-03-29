@@ -105,6 +105,9 @@ struct HomeView: View {
         .onAppear {
             presenter.onAppear()
         }
+        .onDisappear {
+            presenter.onDisappear()
+        }
         .alert("Error", isPresented: $presenter.isError) {
             Button("OK", role: .cancel) {}
         } message: {
@@ -223,7 +226,14 @@ extension HomeView {
         }
         
         let imageSize = cameraImage.size
-        let renderer = UIGraphicsImageRenderer(size: imageSize)
+        
+        // CRITICAL FOR MEMORY: Use scale=1.0 for high-res photos.
+        // Default scale (3.0) on a 12MP photo = 1.5GB+ memory spike = CRASH.
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1.0
+        format.opaque = true
+        
+        let renderer = UIGraphicsImageRenderer(size: imageSize, format: format)
         
         return renderer.image { ctx in
             // Draw the original camera image

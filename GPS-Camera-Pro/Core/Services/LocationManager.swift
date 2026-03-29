@@ -26,18 +26,30 @@ final class LocationManager: NSObject, ObservableObject {
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()
     private var lastGeocodedLocation: CLLocation?
-    private var snapshotTimer: Timer?
+    private var currentSnapshotter: MKMapSnapshotter?
+    private var lastSnapshotCoordinate: CLLocationCoordinate2D?
+    
+    // Throttle: minimum seconds between geocode calls
+    private var lastGeocodeTime: Date = .distantPast
+    private let geocodeThrottleInterval: TimeInterval = 60 // Increase to 60s
+    
+    // Reused objects to save memory
+    private static let formatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "dd/MM/yy HH:mm"
+        return f
+    }()
     
     // MARK: - Init
     override init() {
         super.init()
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = 10 // Update every 10 meters
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.distanceFilter = 100 // Update every 100 meters to reduce frequency
     }
     
     deinit {
-        snapshotTimer?.invalidate()
+        currentSnapshotter?.cancel()
         print("LocationManager deinitialized")
     }
     
@@ -52,134 +64,126 @@ final class LocationManager: NSObject, ObservableObject {
     
     func stopUpdating() {
         locationManager.stopUpdatingLocation()
-        snapshotTimer?.invalidate()
+        currentSnapshotter?.cancel()
     }
     
     // MARK: - Private Methods
     private func updateDateTime() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yy HH:mm"
-        let dateStr = formatter.string(from: Date())
+        let dateStr = Self.formatter.string(from: Date())
         
-        let tz = TimeZone.current
-        let tzAbbr = tz.abbreviation() ?? ""
-        let seconds = tz.secondsFromGMT()
+        let seconds = TimeZone.current.secondsFromGMT()
         let hours = seconds / 3600
         let minutes = abs(seconds % 3600) / 60
         let utcOffset = String(format: "UTC%@%02d:%02d", hours >= 0 ? "+" : "-", abs(hours), minutes)
         
-        formattedDateTime = "\(dateStr) \(utcOffset)"
+        let newDateTime = "\(dateStr) \(utcOffset)"
+        if formattedDateTime != newDateTime {
+            formattedDateTime = newDateTime
+        }
     }
     
     private func reverseGeocode(_ location: CLLocation) {
-        // Avoid geocoding the same spot repeatedly
-        if let last = lastGeocodedLocation,
-           last.distance(from: location) < 50 {
+        // Throttle: skip if called too recently
+        let now = Date()
+        guard now.timeIntervalSince(lastGeocodeTime) >= geocodeThrottleInterval else {
             return
         }
+        
+        // Skip if we haven't moved far enough
+        if let last = lastGeocodedLocation,
+           last.distance(from: location) < 100 {
+            return
+        }
+        
         lastGeocodedLocation = location
+        lastGeocodeTime = now
+        
+        geocoder.cancelGeocode()
         
         geocoder.reverseGeocodeLocation(location) { [weak self] placemarks, error in
             guard let self = self else { return }
             
             DispatchQueue.main.async {
                 if let error = error {
-                    self.locationError = error.localizedDescription
+                    print("Geocode error: \(error.localizedDescription)")
                     return
                 }
                 
                 guard let placemark = placemarks?.first else { return }
                 
-                // Build location name: "City, State, Country"
+                // Build location name
                 var nameParts: [String] = []
-                if let locality = placemark.locality {
-                    nameParts.append(locality)
-                }
-                if let state = placemark.administrativeArea {
-                    nameParts.append(state)
-                }
-                if let country = placemark.country {
-                    nameParts.append(country)
-                }
-                self.locationName = nameParts.joined(separator: ", ")
+                if let locality = placemark.locality { nameParts.append(locality) }
+                if let state = placemark.administrativeArea { nameParts.append(state) }
+                if let country = placemark.country { nameParts.append(country) }
+                let newName = nameParts.joined(separator: ", ")
+                if self.locationName != newName { self.locationName = newName }
                 
-                // Build sub-address: "SubLocality, SubAdministrativeArea..."
+                // Build sub-address
                 var subParts: [String] = []
-                if let subLocality = placemark.subLocality {
-                    subParts.append(subLocality)
-                }
-                if let subAdmin = placemark.subAdministrativeArea {
-                    subParts.append(subAdmin)
-                }
+                if let subLocality = placemark.subLocality { subParts.append(subLocality) }
+                if let subAdmin = placemark.subAdministrativeArea { subParts.append(subAdmin) }
                 if subParts.isEmpty {
-                    if let thoroughfare = placemark.thoroughfare {
-                        subParts.append(thoroughfare)
-                    }
-                    if let subThoroughfare = placemark.subThoroughfare {
-                        subParts.insert(subThoroughfare, at: 0)
-                    }
+                    if let thoroughfare = placemark.thoroughfare { subParts.append(thoroughfare) }
+                    if let subThor = placemark.subThoroughfare { subParts.insert(subThor, at: 0) }
                 }
-                self.subAddress = subParts.joined(separator: ", ")
+                let newSub = subParts.joined(separator: ", ")
+                if self.subAddress != newSub { self.subAddress = newSub }
                 
                 // Generate map snapshot
-                self.generateMapSnapshot(for: location.coordinate)
+                self.generateMapSnapshotIfNeeded(for: location.coordinate)
             }
         }
     }
     
-    private func generateMapSnapshot(for coordinate: CLLocationCoordinate2D) {
+    private func generateMapSnapshotIfNeeded(for coordinate: CLLocationCoordinate2D) {
+        // Higher threshold for map updates: 200m
+        if let last = lastSnapshotCoordinate {
+            let lastLoc = CLLocation(latitude: last.latitude, longitude: last.longitude)
+            let newLoc = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            if lastLoc.distance(from: newLoc) < 200 && mapSnapshot != nil {
+                return
+            }
+        }
+        
+        currentSnapshotter?.cancel()
+        
         let options = MKMapSnapshotter.Options()
         options.region = MKCoordinateRegion(
             center: coordinate,
             latitudinalMeters: 500,
             longitudinalMeters: 500
         )
-        options.size = CGSize(width: 80, height: 80)
+        // Smaller snapshot size to save memory
+        options.size = CGSize(width: 60, height: 60)
         options.mapType = .satellite
-        options.showsBuildings = true
         
         let snapshotter = MKMapSnapshotter(options: options)
+        currentSnapshotter = snapshotter
+        
         snapshotter.start { [weak self] snapshot, error in
             guard let self = self,
-                  let snapshot = snapshot else { return }
+                  let snapshot = snapshot,
+                  self.currentSnapshotter === snapshotter else {
+                return
+            }
             
             // Draw pin on snapshot
-            let image = UIGraphicsImageRenderer(size: snapshot.image.size).image { ctx in
+            let image = UIGraphicsImageRenderer(size: snapshot.image.size).image { _ in
                 snapshot.image.draw(at: .zero)
-                
                 let point = snapshot.point(for: coordinate)
-                let pinSize: CGFloat = 20
-                let pinRect = CGRect(
-                    x: point.x - pinSize / 2,
-                    y: point.y - pinSize,
-                    width: pinSize,
-                    height: pinSize
-                )
                 
-                // Draw a red pin marker
-                let pinColor = UIColor.red
-                pinColor.setFill()
-                let pinPath = UIBezierPath(ovalIn: CGRect(
-                    x: pinRect.midX - 6,
-                    y: pinRect.midY - 6,
-                    width: 12,
-                    height: 12
-                ))
-                pinPath.fill()
+                UIColor.red.setFill()
+                UIBezierPath(ovalIn: CGRect(x: point.x - 4, y: point.y - 4, width: 8, height: 8)).fill()
                 
-                // White inner circle
                 UIColor.white.setFill()
-                let innerPath = UIBezierPath(ovalIn: CGRect(
-                    x: pinRect.midX - 3,
-                    y: pinRect.midY - 3,
-                    width: 6,
-                    height: 6
-                ))
-                innerPath.fill()
+                UIBezierPath(ovalIn: CGRect(x: point.x - 2, y: point.y - 2, width: 4, height: 4)).fill()
             }
             
             DispatchQueue.main.async {
+                self.lastSnapshotCoordinate = coordinate
                 self.mapSnapshot = image
+                self.currentSnapshotter = nil
             }
         }
     }
@@ -199,24 +203,15 @@ extension LocationManager: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        DispatchQueue.main.async {
-            self.locationError = error.localizedDescription
-        }
+        // Silently handle errors unless critical
+        print("LocationManager error: \(error.localizedDescription)")
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         DispatchQueue.main.async {
             self.authorizationStatus = manager.authorizationStatus
-            
-            switch manager.authorizationStatus {
-            case .authorizedWhenInUse, .authorizedAlways:
+            if manager.authorizationStatus == .authorizedWhenInUse || manager.authorizationStatus == .authorizedAlways {
                 self.startUpdating()
-            case .denied, .restricted:
-                self.locationError = "Location access denied. Please enable in Settings."
-            case .notDetermined:
-                break
-            @unknown default:
-                break
             }
         }
     }

@@ -37,26 +37,40 @@ final class HomeInteractor: ObservableObject {
         cameraService.checkPermission()
     }
     
+    func onDisappear() {
+        locationManager.stopUpdating()
+        cameraService.stopSession()
+    }
+    
     func capturePhoto(overlayRenderer: @escaping (UIImage) -> UIImage?,
                       completion: @escaping (Bool, String?) -> Void) {
+        print("📸 HomeInteractor: capturePhoto called")
         cameraService.capturePhoto { [weak self] capturedImage in
             guard let self = self,
                   let capturedImage = capturedImage else {
+                print("❌ HomeInteractor: capturedImage is nil")
                 completion(false, "Failed to capture photo")
                 return
             }
             
+            print("✅ HomeInteractor: got captured image \(capturedImage.size)")
+            
             // Composite overlay onto captured image
             guard let composited = overlayRenderer(capturedImage) else {
+                print("❌ HomeInteractor: overlay compositing failed")
                 completion(false, "Failed to composite overlay")
                 return
             }
             
+            print("✅ HomeInteractor: composited image \(composited.size), saving to gallery...")
+            
             // Save to gallery
             self.cameraService.saveImageToGallery(composited) { success, error in
                 if success {
+                    print("✅ HomeInteractor: photo saved to gallery!")
                     completion(true, nil)
                 } else {
+                    print("❌ HomeInteractor: save failed - \(error?.localizedDescription ?? "unknown")")
                     completion(false, error?.localizedDescription ?? "Failed to save photo")
                 }
             }
@@ -66,14 +80,15 @@ final class HomeInteractor: ObservableObject {
     // MARK: - Private Methods
     
     private func setupBindings() {
-        // Combine location updates into a LocationCardDetailDomain
+        // Optimization: Throttled and deduplicated Combine pipeline
         Publishers.CombineLatest4(
-            locationManager.$coordinate,
-            locationManager.$locationName,
-            locationManager.$subAddress,
-            locationManager.$formattedDateTime
+            locationManager.$coordinate.removeDuplicates { $0?.latitude == $1?.latitude && $0?.longitude == $1?.longitude },
+            locationManager.$locationName.removeDuplicates(),
+            locationManager.$subAddress.removeDuplicates(),
+            locationManager.$formattedDateTime.removeDuplicates()
         )
-        .combineLatest(locationManager.$mapSnapshot)
+        .combineLatest(locationManager.$mapSnapshot.removeDuplicates())
+        .throttle(for: .seconds(3), scheduler: DispatchQueue.main, latest: true)
         .receive(on: DispatchQueue.main)
         .sink { [weak self] combined, mapSnapshot in
             let (coordinate, locationName, subAddress, dateTime) = combined
@@ -90,7 +105,13 @@ final class HomeInteractor: ObservableObject {
                 mapSnapshot: mapSnapshot
             )
             
-            self?.locationCard = dto.toDomain()
+            let newDomain = dto.toDomain()
+            // Only update if something actually changed
+            if self?.locationCard?.locationName != newDomain.locationName || 
+                self?.locationCard?.dateTime != newDomain.dateTime || 
+                self?.locationCard?.mapSnapshot != newDomain.mapSnapshot {
+                self?.locationCard = newDomain
+            }
         }
         .store(in: &cancellables)
     }
