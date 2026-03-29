@@ -38,7 +38,7 @@ struct CameraTopBar: View {
                         .fill(Color.white.opacity(0.15))
                         .frame(width: 36, height: 36)
                     
-                    Text("1")
+                   Image(systemName: "person.crop.square.badge.camera.fill")
                         .font(.customFont(.bold, size: 14))
                         .foregroundColor(.white)
                         .overlay(

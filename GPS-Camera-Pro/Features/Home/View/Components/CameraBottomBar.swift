@@ -128,23 +128,23 @@ struct CameraBottomBar: View {
 
 // MARK: - Camera Mode
 enum CameraMode: CaseIterable {
-    case timelapse
+  //  case timelapse
     case photo
-    case video
-    case qrCode
+   // case video
+   // case qrCode
     
     var title: String {
         switch self {
-        case .timelapse: return "TIMELAPSE"
+      //  case .timelapse: return "TIMELAPSE"
         case .photo: return "PHOTO"
-        case .video: return "VIDEO"
-        case .qrCode: return "QR CODE"
+      //  case .video: return "VIDEO"
+      //  case .qrCode: return "QR CODE"
         }
     }
     
     var isPremium: Bool {
         switch self {
-        case .timelapse, .video: return true
+       // case .timelapse, .video: return true
         default: return false
         }
     }
