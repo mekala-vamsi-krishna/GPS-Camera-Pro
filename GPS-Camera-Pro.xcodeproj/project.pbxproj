@@ -67,6 +67,7 @@
 		CE8E31962F790762007AAFD5 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31952F790762007AAFD5 /* HomeRouter.swift */; };
 		CE8E31982F790795007AAFD5 /* HomeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31972F790795007AAFD5 /* HomeDetailView.swift */; };
 		CE8E319C2F790C87007AAFD5 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E319B2F790C87007AAFD5 /* LoginView.swift */; };
+		CE8E319F2F790E94007AAFD5 /* topBarCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E319E2F790E94007AAFD5 /* topBarCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -131,6 +132,7 @@
 		CE8E31952F790762007AAFD5 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		CE8E31972F790795007AAFD5 /* HomeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailView.swift; sourceTree = "<group>"; };
 		CE8E319B2F790C87007AAFD5 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		CE8E319E2F790E94007AAFD5 /* topBarCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = topBarCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,6 +248,7 @@
 		CE8E31102F78EFC9007AAFD5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CE8E319D2F790E80007AAFD5 /* Components */,
 				CE8E31172F78F028007AAFD5 /* HomeView.swift */,
 				CE8E31972F790795007AAFD5 /* HomeDetailView.swift */,
 			);
@@ -476,6 +479,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		CE8E319D2F790E80007AAFD5 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				CE8E319E2F790E94007AAFD5 /* topBarCard.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -610,6 +621,7 @@
 				CE8E318A2F78FD5F007AAFD5 /* APIError.swift in Sources */,
 				CE1174D62F744EC5005CD77A /* Utils.swift in Sources */,
 				CE8E311A2F78F036007AAFD5 /* HomeInteractor.swift in Sources */,
+				CE8E319F2F790E94007AAFD5 /* topBarCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

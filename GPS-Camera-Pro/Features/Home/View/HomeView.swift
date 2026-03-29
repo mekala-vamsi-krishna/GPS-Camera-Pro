@@ -29,6 +29,15 @@ extension HomeView {
          Text("Hello world")
         }
     }
+    
+    private var topBar: some View {
+        HStack {
+            
+        }
+        .frame(maxWidth: .infinity)
+        .frame(height: 100)
+        .padding(.all,12)
+    }
 }
 
 #Preview {
