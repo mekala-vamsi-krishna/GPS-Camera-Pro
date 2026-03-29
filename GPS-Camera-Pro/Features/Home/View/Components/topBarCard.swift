@@ -11,10 +11,10 @@ struct topBarCard: View {
     var tapOnCard: () -> Void
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerSize: AppTheme.Radius.medium)
-                .fill(AppTheme.Colors.background)
-                .frame(height: 100)
-                .onTapGesture(perform: tapOnCard)
+//            RoundedRectangle(cornerSize: AppTheme.Radius.medium)
+//                .fill(AppTheme.Colors.background)
+//                .frame(height: 100)
+//                .onTapGesture(perform: tapOnCard)
         }
     }
 }

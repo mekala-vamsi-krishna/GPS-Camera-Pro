@@ -68,6 +68,13 @@
 		CE8E31982F790795007AAFD5 /* HomeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31972F790795007AAFD5 /* HomeDetailView.swift */; };
 		CE8E319C2F790C87007AAFD5 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E319B2F790C87007AAFD5 /* LoginView.swift */; };
 		CE8E319F2F790E94007AAFD5 /* topBarCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E319E2F790E94007AAFD5 /* topBarCard.swift */; };
+		CE8E31A42F798D28007AAFD5 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31A22F798D28007AAFD5 /* LocationManager.swift */; };
+		CE8E31A52F798D28007AAFD5 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31A12F798D28007AAFD5 /* CameraService.swift */; };
+		CE8E31AB2F798D63007AAFD5 /* GeotagLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31AA2F798D63007AAFD5 /* GeotagLabelView.swift */; };
+		CE8E31AC2F798D63007AAFD5 /* CameraTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31A82F798D63007AAFD5 /* CameraTopBar.swift */; };
+		CE8E31AD2F798D63007AAFD5 /* DragHintOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31A92F798D63007AAFD5 /* DragHintOverlay.swift */; };
+		CE8E31AE2F798D63007AAFD5 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31A72F798D63007AAFD5 /* CameraPreviewView.swift */; };
+		CE8E31AF2F798D63007AAFD5 /* CameraBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31A62F798D63007AAFD5 /* CameraBottomBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -133,6 +140,13 @@
 		CE8E31972F790795007AAFD5 /* HomeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailView.swift; sourceTree = "<group>"; };
 		CE8E319B2F790C87007AAFD5 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		CE8E319E2F790E94007AAFD5 /* topBarCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = topBarCard.swift; sourceTree = "<group>"; };
+		CE8E31A12F798D28007AAFD5 /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
+		CE8E31A22F798D28007AAFD5 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		CE8E31A62F798D63007AAFD5 /* CameraBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraBottomBar.swift; sourceTree = "<group>"; };
+		CE8E31A72F798D63007AAFD5 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		CE8E31A82F798D63007AAFD5 /* CameraTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTopBar.swift; sourceTree = "<group>"; };
+		CE8E31A92F798D63007AAFD5 /* DragHintOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragHintOverlay.swift; sourceTree = "<group>"; };
+		CE8E31AA2F798D63007AAFD5 /* GeotagLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeotagLabelView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +217,7 @@
 				CE8E31842F78FD31007AAFD5 /* Network */,
 				CE1174D72F744ED9005CD77A /* Extensions */,
 				CE1174D42F744EA9005CD77A /* Utilites */,
+				CE8E31A32F798D28007AAFD5 /* Services */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -483,8 +498,22 @@
 			isa = PBXGroup;
 			children = (
 				CE8E319E2F790E94007AAFD5 /* topBarCard.swift */,
+				CE8E31A62F798D63007AAFD5 /* CameraBottomBar.swift */,
+				CE8E31A72F798D63007AAFD5 /* CameraPreviewView.swift */,
+				CE8E31A82F798D63007AAFD5 /* CameraTopBar.swift */,
+				CE8E31A92F798D63007AAFD5 /* DragHintOverlay.swift */,
+				CE8E31AA2F798D63007AAFD5 /* GeotagLabelView.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		CE8E31A32F798D28007AAFD5 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				CE8E31A12F798D28007AAFD5 /* CameraService.swift */,
+				CE8E31A22F798D28007AAFD5 /* LocationManager.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -601,6 +630,11 @@
 			files = (
 				CE8E31882F78FD54007AAFD5 /* APIEndpoints.swift in Sources */,
 				CE1174CE2F744E72005CD77A /* RootView.swift in Sources */,
+				CE8E31AB2F798D63007AAFD5 /* GeotagLabelView.swift in Sources */,
+				CE8E31AC2F798D63007AAFD5 /* CameraTopBar.swift in Sources */,
+				CE8E31AD2F798D63007AAFD5 /* DragHintOverlay.swift in Sources */,
+				CE8E31AE2F798D63007AAFD5 /* CameraPreviewView.swift in Sources */,
+				CE8E31AF2F798D63007AAFD5 /* CameraBottomBar.swift in Sources */,
 				CE8E312F2F78F584007AAFD5 /* Date+Extension.swift in Sources */,
 				CE8E318D2F78FD7F007AAFD5 /* LocalDBManager.swift in Sources */,
 				CE8E31932F78FDD8007AAFD5 /* Font.swift in Sources */,
@@ -619,6 +653,8 @@
 				CE8E31862F78FD46007AAFD5 /* NetworkManager.swift in Sources */,
 				CE8E31162F78F019007AAFD5 /* HomePresenter.swift in Sources */,
 				CE8E318A2F78FD5F007AAFD5 /* APIError.swift in Sources */,
+				CE8E31A42F798D28007AAFD5 /* LocationManager.swift in Sources */,
+				CE8E31A52F798D28007AAFD5 /* CameraService.swift in Sources */,
 				CE1174D62F744EC5005CD77A /* Utils.swift in Sources */,
 				CE8E311A2F78F036007AAFD5 /* HomeInteractor.swift in Sources */,
 				CE8E319F2F790E94007AAFD5 /* topBarCard.swift in Sources */,
