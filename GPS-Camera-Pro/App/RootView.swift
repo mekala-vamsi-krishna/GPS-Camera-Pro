@@ -6,16 +6,29 @@
 //
 
 import SwiftUI
+import Combine
+
+class AppState : ObservableObject {
+    @Published var  appState: AppStates = .home
+    
+    init(){
+        print("App State Init")
+    }
+    
+    deinit {
+        print("App State Deinit")
+    }
+}
+
 
 struct RootView: View {
+    @EnvironmentObject private var appState:AppState
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        if appState.appState == .home {
+            HomeView()
+        } else{
+            LoginView()
         }
-        .padding()
     }
 }
 

@@ -11,6 +11,7 @@ class Utils {
     private init(){}
     
     let APP_NAME = "GPS-Camera-Pro"
+    let JWTOKEN_KEY = "jwtoken"
     
     
 }

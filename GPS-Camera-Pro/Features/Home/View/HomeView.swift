@@ -8,8 +8,26 @@
 import SwiftUI
 
 struct HomeView: View {
+    @StateObject private var  homeRouter:HomeRouterFlow = HomeRouterFlow()
+    
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack(path: $homeRouter.navPaths) {
+            mainContent
+                .navigationDestination(for: HomeFlow.self) { destination in
+                    destination.destinationView
+                }
+                .navigationTitle(Utils.shared.APP_NAME)
+                .navigationBarTitleDisplayMode(.large)
+        }
+    }
+}
+// MARK: SubViews
+extension HomeView {
+    private var mainContent: some View {
+        VStack {
+         Text("Hello world")
+        }
     }
 }
 

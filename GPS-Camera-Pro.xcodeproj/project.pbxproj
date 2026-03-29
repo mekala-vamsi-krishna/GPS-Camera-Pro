@@ -64,6 +64,9 @@
 		CE8E318D2F78FD7F007AAFD5 /* LocalDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E318C2F78FD7F007AAFD5 /* LocalDBManager.swift */; };
 		CE8E31912F78FDCC007AAFD5 /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31902F78FDCC007AAFD5 /* Spacing.swift */; };
 		CE8E31932F78FDD8007AAFD5 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31922F78FDD8007AAFD5 /* Font.swift */; };
+		CE8E31962F790762007AAFD5 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31952F790762007AAFD5 /* HomeRouter.swift */; };
+		CE8E31982F790795007AAFD5 /* HomeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31972F790795007AAFD5 /* HomeDetailView.swift */; };
+		CE8E319C2F790C87007AAFD5 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E319B2F790C87007AAFD5 /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -125,6 +128,9 @@
 		CE8E318C2F78FD7F007AAFD5 /* LocalDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBManager.swift; sourceTree = "<group>"; };
 		CE8E31902F78FDCC007AAFD5 /* Spacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
 		CE8E31922F78FDD8007AAFD5 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		CE8E31952F790762007AAFD5 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
+		CE8E31972F790795007AAFD5 /* HomeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailView.swift; sourceTree = "<group>"; };
+		CE8E319B2F790C87007AAFD5 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,8 +187,8 @@
 		CE1174D22F744E85005CD77A /* App */ = {
 			isa = PBXGroup;
 			children = (
-				CE1174CB2F744E72005CD77A /* RootView.swift */,
 				CE1174CC2F744E72005CD77A /* GPS_Camera_ProApp.swift */,
+				CE1174CB2F744E72005CD77A /* RootView.swift */,
 				CE8E311D2F78F1DF007AAFD5 /* Router.swift */,
 			);
 			path = App;
@@ -219,6 +225,7 @@
 		CE8E310E2F78EF8C007AAFD5 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				CE8E31992F790C6F007AAFD5 /* Auth */,
 				CE8E310F2F78EF99007AAFD5 /* Home */,
 			);
 			path = Features;
@@ -240,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				CE8E31172F78F028007AAFD5 /* HomeView.swift */,
+				CE8E31972F790795007AAFD5 /* HomeDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -256,7 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				CE8E31262F78F332007AAFD5 /* Data */,
-				CE8E31192F78F036007AAFD5 /* HomeInteractor.swift */,
+				CE8E31942F790684007AAFD5 /* intractor */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -272,6 +280,7 @@
 		CE8E31142F78EFF6007AAFD5 /* Home+Router */ = {
 			isa = PBXGroup;
 			children = (
+				CE8E31952F790762007AAFD5 /* HomeRouter.swift */,
 			);
 			path = "Home+Router";
 			sourceTree = "<group>";
@@ -443,6 +452,30 @@
 			path = Theme;
 			sourceTree = "<group>";
 		};
+		CE8E31942F790684007AAFD5 /* intractor */ = {
+			isa = PBXGroup;
+			children = (
+				CE8E31192F78F036007AAFD5 /* HomeInteractor.swift */,
+			);
+			path = intractor;
+			sourceTree = "<group>";
+		};
+		CE8E31992F790C6F007AAFD5 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				CE8E319A2F790C75007AAFD5 /* Views */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		CE8E319A2F790C75007AAFD5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE8E319B2F790C87007AAFD5 /* LoginView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -563,7 +596,10 @@
 				CE8E31312F78F5AC007AAFD5 /* Font+Extension.swift in Sources */,
 				CE1174D92F7450A6005CD77A /* Colors.swift in Sources */,
 				CE1174CF2F744E72005CD77A /* GPS_Camera_ProApp.swift in Sources */,
+				CE8E319C2F790C87007AAFD5 /* LoginView.swift in Sources */,
+				CE8E31982F790795007AAFD5 /* HomeDetailView.swift in Sources */,
 				CE8E311C2F78F05E007AAFD5 /* LocationCardDetailDomain.swift in Sources */,
+				CE8E31962F790762007AAFD5 /* HomeRouter.swift in Sources */,
 				CE8E311E2F78F1DF007AAFD5 /* Router.swift in Sources */,
 				CE8E31832F78F84D007AAFD5 /* PrimaryButtonStyle.swift in Sources */,
 				CE8E312D2F78F454007AAFD5 /* LocationCardDetailDTO.swift in Sources */,

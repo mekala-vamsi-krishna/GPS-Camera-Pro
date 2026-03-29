@@ -10,11 +10,12 @@ import SwiftUI
 @main
 struct GPS_Camera_ProApp: App {
     @Environment(\.scenePhase) private var scenePhase
-    
+    @StateObject private var appState = AppState()
     
     var body: some Scene {
         WindowGroup {
             RootView()
+                .environmentObject(appState)
         }.onChange(of: scenePhase) {  newPhase in
             switch newPhase {
             case .active :
