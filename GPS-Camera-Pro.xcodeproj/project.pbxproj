@@ -12,6 +12,11 @@
 		CE1174D02F744E72005CD77A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE1174CA2F744E72005CD77A /* Assets.xcassets */; };
 		CE1174D62F744EC5005CD77A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1174D52F744EC5005CD77A /* Utils.swift */; };
 		CE1174D92F7450A6005CD77A /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1174D82F7450A6005CD77A /* Colors.swift */; };
+		CE1C65082FE5DEE700C92862 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C65072FE5DEE700C92862 /* SideMenuView.swift */; };
+		CE1C651C2FE5F0BC00C92862 /* Favourites.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C651B2FE5F0BC00C92862 /* Favourites.swift */; };
+		CE1C65242FE5F17100C92862 /* AllPhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C65232FE5F17100C92862 /* AllPhotosView.swift */; };
+		CE1C652E2FE5F41600C92862 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C652D2FE5F41600C92862 /* ProfileView.swift */; };
+		CE1C65302FE5F86B00C92862 /* MainContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C652F2FE5F86B00C92862 /* MainContainerView.swift */; };
 		CE8E31162F78F019007AAFD5 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31152F78F019007AAFD5 /* HomePresenter.swift */; };
 		CE8E31182F78F028007AAFD5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31172F78F028007AAFD5 /* HomeView.swift */; };
 		CE8E311A2F78F036007AAFD5 /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31192F78F036007AAFD5 /* HomeInteractor.swift */; };
@@ -85,6 +90,11 @@
 		CE1174CC2F744E72005CD77A /* GPS_Camera_ProApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPS_Camera_ProApp.swift; sourceTree = "<group>"; };
 		CE1174D52F744EC5005CD77A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		CE1174D82F7450A6005CD77A /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		CE1C65072FE5DEE700C92862 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
+		CE1C651B2FE5F0BC00C92862 /* Favourites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favourites.swift; sourceTree = "<group>"; };
+		CE1C65232FE5F17100C92862 /* AllPhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPhotosView.swift; sourceTree = "<group>"; };
+		CE1C652D2FE5F41600C92862 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		CE1C652F2FE5F86B00C92862 /* MainContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContainerView.swift; sourceTree = "<group>"; };
 		CE8E31152F78F019007AAFD5 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		CE8E31172F78F028007AAFD5 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CE8E31192F78F036007AAFD5 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
@@ -209,6 +219,7 @@
 				CE1174CC2F744E72005CD77A /* GPS_Camera_ProApp.swift */,
 				CE1174CB2F744E72005CD77A /* RootView.swift */,
 				CE8E311D2F78F1DF007AAFD5 /* Router.swift */,
+				CE1C652F2FE5F86B00C92862 /* MainContainerView.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -242,11 +253,167 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		CE1C65062FE5DEA000C92862 /* SideMenus */ = {
+			isa = PBXGroup;
+			children = (
+				CE1C65072FE5DEE700C92862 /* SideMenuView.swift */,
+			);
+			path = SideMenus;
+			sourceTree = "<group>";
+		};
+		CE1C65152FE5F04800C92862 /* AllPhotos */ = {
+			isa = PBXGroup;
+			children = (
+				CE1C65252FE5F22000C92862 /* AllPhotosFlowRouter */,
+				CE1C651D2FE5F11D00C92862 /* Entity */,
+				CE1C651E2FE5F12C00C92862 /* Intractor */,
+				CE1C651F2FE5F13800C92862 /* Presenter */,
+				CE1C65202FE5F14900C92862 /* View */,
+			);
+			path = AllPhotos;
+			sourceTree = "<group>";
+		};
+		CE1C65162FE5F05100C92862 /* Favourites */ = {
+			isa = PBXGroup;
+			children = (
+				CE1C65262FE5F23500C92862 /* FavouritesFlowRouter */,
+				CE1C65192FE5F08700C92862 /* Presenter */,
+				CE1C65182FE5F07C00C92862 /* Intractor */,
+				CE1C65172FE5F07200C92862 /* Entity */,
+				CE1C651A2FE5F08E00C92862 /* View */,
+			);
+			path = Favourites;
+			sourceTree = "<group>";
+		};
+		CE1C65172FE5F07200C92862 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		CE1C65182FE5F07C00C92862 /* Intractor */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Intractor;
+			sourceTree = "<group>";
+		};
+		CE1C65192FE5F08700C92862 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		CE1C651A2FE5F08E00C92862 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CE1C651B2FE5F0BC00C92862 /* Favourites.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CE1C651D2FE5F11D00C92862 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		CE1C651E2FE5F12C00C92862 /* Intractor */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Intractor;
+			sourceTree = "<group>";
+		};
+		CE1C651F2FE5F13800C92862 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		CE1C65202FE5F14900C92862 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CE1C65232FE5F17100C92862 /* AllPhotosView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CE1C65252FE5F22000C92862 /* AllPhotosFlowRouter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AllPhotosFlowRouter;
+			sourceTree = "<group>";
+		};
+		CE1C65262FE5F23500C92862 /* FavouritesFlowRouter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FavouritesFlowRouter;
+			sourceTree = "<group>";
+		};
+		CE1C65272FE5F3B100C92862 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				CE1C65292FE5F3CA00C92862 /* Entity */,
+				CE1C652A2FE5F3D600C92862 /* Presenter */,
+				CE1C65282FE5F3BF00C92862 /* Intractor */,
+				CE1C652B2FE5F3DD00C92862 /* View */,
+				CE1C652C2FE5F3E300C92862 /* Components */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		CE1C65282FE5F3BF00C92862 /* Intractor */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Intractor;
+			sourceTree = "<group>";
+		};
+		CE1C65292FE5F3CA00C92862 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		CE1C652A2FE5F3D600C92862 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		CE1C652B2FE5F3DD00C92862 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CE1C652D2FE5F41600C92862 /* ProfileView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CE1C652C2FE5F3E300C92862 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		CE8E310E2F78EF8C007AAFD5 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				CE1C65062FE5DEA000C92862 /* SideMenus */,
 				CE8E31992F790C6F007AAFD5 /* Auth */,
 				CE8E310F2F78EF99007AAFD5 /* Home */,
+				CE1C65152FE5F04800C92862 /* AllPhotos */,
+				CE1C65162FE5F05100C92862 /* Favourites */,
+				CE1C65272FE5F3B100C92862 /* Profile */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -254,11 +421,12 @@
 		CE8E310F2F78EF99007AAFD5 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				CE8E31142F78EFF6007AAFD5 /* Home+Router */,
 				CE8E31132F78EFE7007AAFD5 /* Entity */,
 				CE8E31122F78EFDF007AAFD5 /* Interactor */,
 				CE8E31112F78EFD1007AAFD5 /* Presenter */,
 				CE8E31102F78EFC9007AAFD5 /* View */,
+				CE8E319D2F790E80007AAFD5 /* Components */,
+				CE8E31142F78EFF6007AAFD5 /* Home+Router */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -266,7 +434,6 @@
 		CE8E31102F78EFC9007AAFD5 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CE8E319D2F790E80007AAFD5 /* Components */,
 				CE8E31172F78F028007AAFD5 /* HomeView.swift */,
 				CE8E31972F790795007AAFD5 /* HomeDetailView.swift */,
 			);
@@ -639,6 +806,8 @@
 				CE8E31AD2F798D63007AAFD5 /* DragHintOverlay.swift in Sources */,
 				CE8E31AE2F798D63007AAFD5 /* CameraPreviewView.swift in Sources */,
 				CE8E31AF2F798D63007AAFD5 /* CameraBottomBar.swift in Sources */,
+				CE1C65082FE5DEE700C92862 /* SideMenuView.swift in Sources */,
+				CE1C65242FE5F17100C92862 /* AllPhotosView.swift in Sources */,
 				CE8E312F2F78F584007AAFD5 /* Date+Extension.swift in Sources */,
 				CE8E318D2F78FD7F007AAFD5 /* LocalDBManager.swift in Sources */,
 				CE8E31932F78FDD8007AAFD5 /* Font.swift in Sources */,
@@ -650,16 +819,19 @@
 				CE8E311C2F78F05E007AAFD5 /* LocationCardDetailDomain.swift in Sources */,
 				CE8E31962F790762007AAFD5 /* HomeRouter.swift in Sources */,
 				CE8E311E2F78F1DF007AAFD5 /* Router.swift in Sources */,
+				CE1C651C2FE5F0BC00C92862 /* Favourites.swift in Sources */,
 				CE8E31832F78F84D007AAFD5 /* PrimaryButtonStyle.swift in Sources */,
 				CE8E312D2F78F454007AAFD5 /* LocationCardDetailDTO.swift in Sources */,
 				CE8E31912F78FDCC007AAFD5 /* Spacing.swift in Sources */,
 				CE8E31182F78F028007AAFD5 /* HomeView.swift in Sources */,
 				CE8E31862F78FD46007AAFD5 /* NetworkManager.swift in Sources */,
+				CE1C652E2FE5F41600C92862 /* ProfileView.swift in Sources */,
 				CE8E31162F78F019007AAFD5 /* HomePresenter.swift in Sources */,
 				CE8E318A2F78FD5F007AAFD5 /* APIError.swift in Sources */,
 				CE8E31A42F798D28007AAFD5 /* LocationManager.swift in Sources */,
 				CE8E31A52F798D28007AAFD5 /* CameraService.swift in Sources */,
 				CE1174D62F744EC5005CD77A /* Utils.swift in Sources */,
+				CE1C65302FE5F86B00C92862 /* MainContainerView.swift in Sources */,
 				CE8E311A2F78F036007AAFD5 /* HomeInteractor.swift in Sources */,
 				CE8E319F2F790E94007AAFD5 /* topBarCard.swift in Sources */,
 			);

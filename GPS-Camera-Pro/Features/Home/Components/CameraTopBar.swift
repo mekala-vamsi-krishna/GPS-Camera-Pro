@@ -22,11 +22,11 @@ struct CameraTopBar: View {
             // Left side icons
             HStack(spacing: 16) {
                 topBarButton(icon: "line.3.horizontal", action: onMenuTap)
-                topBarButton(icon: "photo.artframe", action: onFilterTap)
-                topBarButton(icon: "bolt.slash.fill", action: onFlashTap)
-                topBarButton(icon: "timer", action: onTimerTap)
-                topBarButton(icon: "aspectratio", action: onAspectRatioTap)
-                topBarButton(icon: "slider.horizontal.3", action: onSettingsTap)
+//                topBarButton(icon: "photo.artframe", action: onFilterTap)
+//                topBarButton(icon: "bolt.slash.fill", action: onFlashTap)
+//                topBarButton(icon: "timer", action: onTimerTap)
+//                topBarButton(icon: "aspectratio", action: onAspectRatioTap)
+//                topBarButton(icon: "slider.horizontal.3", action: onSettingsTap)
             }
             
             Spacer()
@@ -56,8 +56,10 @@ struct CameraTopBar: View {
     private func topBarButton(icon: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Image(systemName: icon)
-                .font(.system(size: 18, weight: .medium))
+                .font(.system(size: 20, weight: .medium))
                 .foregroundColor(.white)
+                .frame(width: 44, height: 44)
+                .contentShape(Rectangle())
         }
     }
 }

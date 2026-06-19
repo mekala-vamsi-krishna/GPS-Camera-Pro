@@ -9,11 +9,14 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject private var presenter = HomePresenter()
+    @StateObject private var router = HomeRouterFlow()
     @State private var selectedMode: CameraMode = .photo
     @State private var labelOffset: CGSize = .zero
     @State private var showCaptureFlash: Bool = false
+    @Binding var presentSideMenu: Bool
     
     var body: some View {
+        NavigationStack(path: $router.navPaths) {
         GeometryReader { geometry in
             ZStack {
                 // Layer 1: Camera Preview
@@ -31,7 +34,13 @@ struct HomeView: View {
                 VStack(spacing: 0) {
                     // Top bar
                     CameraTopBar(
-                        onMenuTap: { /* TODO */ },
+                        onMenuTap: {
+                            let generator = UIImpactFeedbackGenerator(style: .medium)
+                            generator.impactOccurred()
+                            withAnimation(.spring(response: 0.3, dampingFraction: 0.85)) {
+                                presentSideMenu.toggle()
+                            }
+                        },
                         onFilterTap: { /* TODO */ },
                         onFlashTap: { /* TODO */ },
                         onTimerTap: { /* TODO */ },
@@ -92,6 +101,7 @@ struct HomeView: View {
                         presenter.dismissDragHint()
                     }
                 )
+                .allowsHitTesting(presenter.showDragHint)
                 
                 // Capture success toast
                 if presenter.showCaptureSuccess {
@@ -102,6 +112,10 @@ struct HomeView: View {
             .ignoresSafeArea(.all, edges: .bottom)
         }
         .statusBarHidden(true)
+        .navigationBarHidden(true)
+        .navigationDestination(for: HomeFlow.self) { destination in
+            destination.destinationView
+        }
         .onAppear {
             presenter.onAppear()
         }
@@ -113,6 +127,7 @@ struct HomeView: View {
         } message: {
             Text(presenter.errorMessage)
         }
+        } // NavigationStack
     }
 }
 
@@ -199,7 +214,7 @@ extension HomeView {
     }
 }
 
-// MARK: - Actions
+// MARK: - Camera Actions
 extension HomeView {
     
     private func capturePhoto() {
@@ -325,6 +340,8 @@ extension HomeView {
     }
 }
 
+
+
 #Preview {
-    HomeView()
+    HomeView(presentSideMenu: .constant(false))
 }

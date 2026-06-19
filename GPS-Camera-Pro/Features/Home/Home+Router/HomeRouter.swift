@@ -11,11 +11,15 @@ import SwiftUI
 // MARK: - Home Flow Navigation Enum
 enum HomeFlow: NavigationDestination, Hashable {
     case detailHome
+    case helpView
     
     var title: String {
         switch self {
         case .detailHome:
             return "Detail"
+        
+        case .helpView:
+            return "Help view"
         
         }
     }
@@ -25,6 +29,9 @@ enum HomeFlow: NavigationDestination, Hashable {
         switch self {
         case .detailHome:
             HomeDetailView()
+            
+        case .helpView:
+            Text("Help View")
       
         }
     }

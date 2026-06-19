@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  RootView.swift
 //  GPS-Camera-Pro
 //
 //  Created by User on 25/03/26.
@@ -8,25 +8,26 @@
 import SwiftUI
 import Combine
 
-class AppState : ObservableObject {
-    @Published var  appState: AppStates = .home
+class AppState: ObservableObject {
+    @Published var appState: AppStates = .home
+    @Published var selectedTab: SideMenuRowType = .home
     
-    init(){
-        print("App State Init")
+    init() {
+        print("AppState Init")
     }
     
     deinit {
-        print("App State Deinit")
+        print("AppState Deinit")
     }
 }
 
-
 struct RootView: View {
-    @EnvironmentObject private var appState:AppState
+    @EnvironmentObject private var appState: AppState
+    
     var body: some View {
         if appState.appState == .home {
-            HomeView()
-        } else{
+            MainContainerView()
+        } else {
             LoginView()
         }
     }
