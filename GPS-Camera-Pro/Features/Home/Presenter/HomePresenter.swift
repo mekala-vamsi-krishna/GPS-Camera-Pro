@@ -22,6 +22,23 @@ final class HomePresenter: ObservableObject {
     @Published var showCaptureSuccess: Bool = false
     @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
     
+    // MARK: - Stamp Settings (UserDefaults backed)
+    @Published var stampShowMap: Bool {
+        didSet { UserDefaults.standard.set(stampShowMap, forKey: "stampShowMap") }
+    }
+    @Published var stampShowDateTime: Bool {
+        didSet { UserDefaults.standard.set(stampShowDateTime, forKey: "stampShowDateTime") }
+    }
+    @Published var stampShowCoordinates: Bool {
+        didSet { UserDefaults.standard.set(stampShowCoordinates, forKey: "stampShowCoordinates") }
+    }
+    @Published var stampShowAddress: Bool {
+        didSet { UserDefaults.standard.set(stampShowAddress, forKey: "stampShowAddress") }
+    }
+    @Published var stampThemeColor: String {
+        didSet { UserDefaults.standard.set(stampThemeColor, forKey: "stampThemeColor") }
+    }
+    
     // MARK: - Interactor
     let interactor: HomeInteractor
     
@@ -31,6 +48,14 @@ final class HomePresenter: ObservableObject {
     // MARK: - Init
     init() {
         self.interactor = HomeInteractor()
+        
+        // Load settings from UserDefaults
+        self.stampShowMap = UserDefaults.standard.object(forKey: "stampShowMap") as? Bool ?? true
+        self.stampShowDateTime = UserDefaults.standard.object(forKey: "stampShowDateTime") as? Bool ?? true
+        self.stampShowCoordinates = UserDefaults.standard.object(forKey: "stampShowCoordinates") as? Bool ?? true
+        self.stampShowAddress = UserDefaults.standard.object(forKey: "stampShowAddress") as? Bool ?? true
+        self.stampThemeColor = UserDefaults.standard.string(forKey: "stampThemeColor") ?? "Classic Black"
+        
         print("HomePresenter initialized")
         setupBindings()
         checkDragHintStatus()

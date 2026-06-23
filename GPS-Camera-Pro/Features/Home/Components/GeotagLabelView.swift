@@ -13,7 +13,27 @@ struct GeotagLabelView: View {
     @Binding var labelOffset: CGSize
     var onDragStarted: (() -> Void)?
     
+    // Stamp Settings
+    var showMap: Bool = true
+    var showDateTime: Bool = true
+    var showCoordinates: Bool = true
+    var showAddress: Bool = true
+    var themeColor: String = "Classic Black"
+    
     @State private var dragAmount: CGSize = .zero
+    
+    private var backgroundForTheme: Color {
+        switch themeColor {
+        case "Ocean Blue":
+            return Color(red: 0.0, green: 0.35, blue: 0.7).opacity(0.65)
+        case "Sunset Orange":
+            return Color(red: 0.8, green: 0.25, blue: 0.1).opacity(0.65)
+        case "Mint Green":
+            return Color(red: 0.05, green: 0.45, blue: 0.25).opacity(0.65)
+        default: // Classic Black
+            return Color.black.opacity(0.65)
+        }
+    }
     
     var body: some View {
         labelContent
@@ -44,13 +64,15 @@ struct GeotagLabelView: View {
                 appHeader
                 
                 // Location name
-                Text(locationCard.locationName)
-                    .font(.customFont(.bold, size: 16))
-                    .foregroundColor(.white)
-                    .lineLimit(1)
+                if showAddress {
+                    Text(locationCard.locationName)
+                        .font(.customFont(.bold, size: 16))
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+                }
                 
                 // Sub-address
-                if !locationCard.subAddress.isEmpty {
+                if showAddress && !locationCard.subAddress.isEmpty {
                     Text(locationCard.subAddress)
                         .font(.customFont(.regular, size: 11))
                         .foregroundColor(.white.opacity(0.9))
@@ -58,20 +80,24 @@ struct GeotagLabelView: View {
                 }
                 
                 // Lat/Long
-                Text("Lat: \(String(format: "%.6f", locationCard.lat)), Long: \(String(format: "%.6f", locationCard.long))")
-                    .font(.customFont(.regular, size: 11))
-                    .foregroundColor(.white.opacity(0.9))
-                    .lineLimit(1)
+                if showCoordinates {
+                    Text("Lat: \(String(format: "%.6f", locationCard.lat)), Long: \(String(format: "%.6f", locationCard.long))")
+                        .font(.customFont(.regular, size: 11))
+                        .foregroundColor(.white.opacity(0.9))
+                        .lineLimit(1)
+                }
                 
                 // Date/Time
-                Text(locationCard.dateTime)
-                    .font(.customFont(.semibold, size: 12))
-                    .foregroundColor(AppTheme.Colors.success)
+                if showDateTime {
+                    Text(locationCard.dateTime)
+                        .font(.customFont(.semibold, size: 12))
+                        .foregroundColor(AppTheme.Colors.success)
+                }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
             // Right side: mini map snapshot
-            if let mapImage = locationCard.mapSnapshot {
+            if showMap, let mapImage = locationCard.mapSnapshot {
                 ZStack(alignment: .topTrailing) {
                     Image(uiImage: mapImage)
                         .resizable()
@@ -92,7 +118,7 @@ struct GeotagLabelView: View {
         .padding(.vertical, 10)
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color.black.opacity(0.65))
+                .fill(backgroundForTheme)
                 .background(
                     RoundedRectangle(cornerRadius: 12)
                         .fill(.ultraThinMaterial)

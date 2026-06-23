@@ -9,11 +9,14 @@ import SwiftUI
 import CoreLocation
 
 struct HomeView: View {
+    @EnvironmentObject private var appState: AppState
     @StateObject private var presenter = HomePresenter()
     @StateObject private var router = HomeRouterFlow()
     @State private var selectedMode: CameraMode = .photo
     @State private var labelOffset: CGSize = .zero
     @State private var showCaptureFlash: Bool = false
+    @State private var showStampSettings: Bool = false
+    @State private var showHelpGuide: Bool = false
     @Binding var presentSideMenu: Bool
     
     var body: some View {
@@ -64,7 +67,12 @@ struct HomeView: View {
                                 if presenter.showDragHint {
                                     presenter.dismissDragHint()
                                 }
-                            }
+                            },
+                            showMap: presenter.stampShowMap,
+                            showDateTime: presenter.stampShowDateTime,
+                            showCoordinates: presenter.stampShowCoordinates,
+                            showAddress: presenter.stampShowAddress,
+                            themeColor: presenter.stampThemeColor
                         )
                         .transition(.move(edge: .bottom).combined(with: .opacity))
                     } else if presenter.authorizationStatus == .notDetermined ||
@@ -96,8 +104,18 @@ struct HomeView: View {
                     CameraBottomBar(
                         selectedMode: $selectedMode,
                         onCapture: capturePhoto,
-                        onStampTap: { /* TODO */ },
-                        onMyPhotosTap: { /* TODO */ },
+                        onStampTap: {
+                            let generator = UIImpactFeedbackGenerator(style: .medium)
+                            generator.impactOccurred()
+                            showStampSettings = true
+                        },
+                        onMyPhotosTap: {
+                            let generator = UIImpactFeedbackGenerator(style: .medium)
+                            generator.impactOccurred()
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                appState.selectedTab = .allPhotos
+                            }
+                        },
                         isCaptureInProgress: presenter.isCaptureInProgress
                     )
                 }
@@ -137,6 +155,24 @@ struct HomeView: View {
         }
         } // NavigationStack
         .environmentObject(router)
+        .sheet(isPresented: $showStampSettings) {
+            StampSettingsSheet(
+                locationCard: presenter.locationCard,
+                stampShowMap: $presenter.stampShowMap,
+                stampShowDateTime: $presenter.stampShowDateTime,
+                stampShowCoordinates: $presenter.stampShowCoordinates,
+                stampShowAddress: $presenter.stampShowAddress,
+                stampThemeColor: $presenter.stampThemeColor,
+                onDismiss: { showStampSettings = false }
+            )
+            .presentationDetents([.fraction(0.65)])
+            .presentationDragIndicator(.visible)
+        }
+        .sheet(isPresented: $showHelpGuide) {
+            HelpGuideSheet(onDismiss: { showHelpGuide = false })
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
+        }
     }
 }
 
@@ -243,9 +279,15 @@ extension HomeView {
         .padding(.horizontal, 12)
     }
     
+
+    
     /// Help button (question mark in circle)
     private var helpButton: some View {
-        Button(action: { /* TODO: show help */ }) {
+        Button(action: {
+            let generator = UIImpactFeedbackGenerator(style: .medium)
+            generator.impactOccurred()
+            showHelpGuide = true
+        }) {
             ZStack {
                 Circle()
                     .fill(Color.white.opacity(0.15))
@@ -343,7 +385,18 @@ extension HomeView {
             
             // Draw label background
             let bgPath = UIBezierPath(roundedRect: labelRect, cornerRadius: 12 * scale)
-            UIColor.black.withAlphaComponent(0.65).setFill()
+            let bgColor: UIColor
+            switch presenter.stampThemeColor {
+            case "Ocean Blue":
+                bgColor = UIColor(red: 0.0, green: 0.35, blue: 0.7, alpha: 0.65)
+            case "Sunset Orange":
+                bgColor = UIColor(red: 0.8, green: 0.25, blue: 0.1, alpha: 0.65)
+            case "Mint Green":
+                bgColor = UIColor(red: 0.05, green: 0.45, blue: 0.25, alpha: 0.65)
+            default: // Classic Black
+                bgColor = UIColor.black.withAlphaComponent(0.65)
+            }
+            bgColor.setFill()
             bgPath.fill()
             
             // Draw text content
@@ -360,47 +413,53 @@ extension HomeView {
             currentY += 14 * scale
             
             // Location name (bold)
-            let locationAttrs: [NSAttributedString.Key: Any] = [
-                .font: UIFont.boldSystemFont(ofSize: 16 * scale),
-                .foregroundColor: UIColor.white
-            ]
-            let locationStr = NSAttributedString(string: locationCard.locationName, attributes: locationAttrs)
-            locationStr.draw(at: CGPoint(x: textX, y: currentY))
-            currentY += 20 * scale
-            
-            // Sub-address
-            if !locationCard.subAddress.isEmpty {
-                let subAttrs: [NSAttributedString.Key: Any] = [
-                    .font: UIFont.systemFont(ofSize: 11 * scale),
-                    .foregroundColor: UIColor.white.withAlphaComponent(0.9)
+            if presenter.stampShowAddress {
+                let locationAttrs: [NSAttributedString.Key: Any] = [
+                    .font: UIFont.boldSystemFont(ofSize: 16 * scale),
+                    .foregroundColor: UIColor.white
                 ]
-                let subStr = NSAttributedString(string: locationCard.subAddress, attributes: subAttrs)
-                subStr.draw(at: CGPoint(x: textX, y: currentY))
-                currentY += 14 * scale
+                let locationStr = NSAttributedString(string: locationCard.locationName, attributes: locationAttrs)
+                locationStr.draw(at: CGPoint(x: textX, y: currentY))
+                currentY += 20 * scale
+                
+                // Sub-address
+                if !locationCard.subAddress.isEmpty {
+                    let subAttrs: [NSAttributedString.Key: Any] = [
+                        .font: UIFont.systemFont(ofSize: 11 * scale),
+                        .foregroundColor: UIColor.white.withAlphaComponent(0.9)
+                    ]
+                    let subStr = NSAttributedString(string: locationCard.subAddress, attributes: subAttrs)
+                    subStr.draw(at: CGPoint(x: textX, y: currentY))
+                    currentY += 14 * scale
+                }
             }
             
             // Lat/Long
-            let coordAttrs: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 11 * scale),
-                .foregroundColor: UIColor.white.withAlphaComponent(0.9)
-            ]
-            let coordStr = NSAttributedString(
-                string: "Lat: \(String(format: "%.6f", locationCard.lat)), Long: \(String(format: "%.6f", locationCard.long))",
-                attributes: coordAttrs
-            )
-            coordStr.draw(at: CGPoint(x: textX, y: currentY))
-            currentY += 14 * scale
+            if presenter.stampShowCoordinates {
+                let coordAttrs: [NSAttributedString.Key: Any] = [
+                    .font: UIFont.systemFont(ofSize: 11 * scale),
+                    .foregroundColor: UIColor.white.withAlphaComponent(0.9)
+                ]
+                let coordStr = NSAttributedString(
+                    string: "Lat: \(String(format: "%.6f", locationCard.lat)), Long: \(String(format: "%.6f", locationCard.long))",
+                    attributes: coordAttrs
+                )
+                coordStr.draw(at: CGPoint(x: textX, y: currentY))
+                currentY += 14 * scale
+            }
             
             // Date/time (green)
-            let dateAttrs: [NSAttributedString.Key: Any] = [
-                .font: UIFont.boldSystemFont(ofSize: 12 * scale),
-                .foregroundColor: UIColor(red: 0.2, green: 0.8, blue: 0.4, alpha: 1.0)
-            ]
-            let dateStr = NSAttributedString(string: locationCard.dateTime, attributes: dateAttrs)
-            dateStr.draw(at: CGPoint(x: textX, y: currentY))
+            if presenter.stampShowDateTime {
+                let dateAttrs: [NSAttributedString.Key: Any] = [
+                    .font: UIFont.boldSystemFont(ofSize: 12 * scale),
+                    .foregroundColor: UIColor(red: 0.2, green: 0.8, blue: 0.4, alpha: 1.0)
+                ]
+                let dateStr = NSAttributedString(string: locationCard.dateTime, attributes: dateAttrs)
+                dateStr.draw(at: CGPoint(x: textX, y: currentY))
+            }
             
             // Draw map snapshot on the right
-            if let mapImage = locationCard.mapSnapshot {
+            if presenter.stampShowMap, let mapImage = locationCard.mapSnapshot {
                 let mapSize = 70 * scale
                 let mapX = labelX + labelWidth - mapSize - 12 * scale
                 let mapY = labelY + (labelHeight - mapSize) / 2

@@ -25,6 +25,8 @@
 		CE3F2D9A2FE658CF001A0DA5 /* FeatureNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3F2D982FE658CF001A0DA5 /* FeatureNavBar.swift */; };
 		CE614DB12FEB0354001FDAA5 /* StoredPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE614DB02FEB0353001FDAA5 /* StoredPhoto.swift */; };
 		CE614DB32FEB036F001FDAA5 /* LocalDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE614DB22FEB036F001FDAA5 /* LocalDBManager.swift */; };
+		CE614DB52FEB0BDD001FDAA5 /* HelpGuideSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE614DB42FEB0BDD001FDAA5 /* HelpGuideSheet.swift */; };
+		CE614DB72FEB0BF2001FDAA5 /* StampSettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE614DB62FEB0BF2001FDAA5 /* StampSettingsSheet.swift */; };
 		CE8E31162F78F019007AAFD5 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31152F78F019007AAFD5 /* HomePresenter.swift */; };
 		CE8E31182F78F028007AAFD5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31172F78F028007AAFD5 /* HomeView.swift */; };
 		CE8E311A2F78F036007AAFD5 /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31192F78F036007AAFD5 /* HomeInteractor.swift */; };
@@ -110,6 +112,8 @@
 		CE3F2D982FE658CF001A0DA5 /* FeatureNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureNavBar.swift; sourceTree = "<group>"; };
 		CE614DB02FEB0353001FDAA5 /* StoredPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredPhoto.swift; sourceTree = "<group>"; };
 		CE614DB22FEB036F001FDAA5 /* LocalDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBManager.swift; sourceTree = "<group>"; };
+		CE614DB42FEB0BDD001FDAA5 /* HelpGuideSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpGuideSheet.swift; sourceTree = "<group>"; };
+		CE614DB62FEB0BF2001FDAA5 /* StampSettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampSettingsSheet.swift; sourceTree = "<group>"; };
 		CE8E31152F78F019007AAFD5 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		CE8E31172F78F028007AAFD5 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CE8E31192F78F036007AAFD5 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
@@ -705,6 +709,8 @@
 				CE8E31A82F798D63007AAFD5 /* CameraTopBar.swift */,
 				CE8E31A92F798D63007AAFD5 /* DragHintOverlay.swift */,
 				CE8E31AA2F798D63007AAFD5 /* GeotagLabelView.swift */,
+				CE614DB42FEB0BDD001FDAA5 /* HelpGuideSheet.swift */,
+				CE614DB62FEB0BF2001FDAA5 /* StampSettingsSheet.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -768,6 +774,7 @@
 			packageReferences = (
 				CE8E311F2F78F23A007AAFD5 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
+			preferredProjectObjectVersion = 77;
 			productRefGroup = CE1174BD2F744E59005CD77A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -840,11 +847,13 @@
 				CE8E31AF2F798D63007AAFD5 /* CameraBottomBar.swift in Sources */,
 				CE1C65082FE5DEE700C92862 /* SideMenuView.swift in Sources */,
 				CE1C65242FE5F17100C92862 /* AllPhotosView.swift in Sources */,
+				CE614DB72FEB0BF2001FDAA5 /* StampSettingsSheet.swift in Sources */,
 				CE8E312F2F78F584007AAFD5 /* Date+Extension.swift in Sources */,
 				CE614DB32FEB036F001FDAA5 /* LocalDBManager.swift in Sources */,
 				CE8E31932F78FDD8007AAFD5 /* Font.swift in Sources */,
 				CE8E31312F78F5AC007AAFD5 /* Font+Extension.swift in Sources */,
 				CE1174D92F7450A6005CD77A /* Colors.swift in Sources */,
+				CE614DB52FEB0BDD001FDAA5 /* HelpGuideSheet.swift in Sources */,
 				CE1174CF2F744E72005CD77A /* GPS_Camera_ProApp.swift in Sources */,
 				CE8E319C2F790C87007AAFD5 /* LoginView.swift in Sources */,
 				CE8E31982F790795007AAFD5 /* HomeDetailView.swift in Sources */,
