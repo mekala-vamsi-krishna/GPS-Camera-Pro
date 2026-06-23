@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK: - AllPhotos Flow Navigation Enum
 enum AllPhotosFlow: NavigationDestination, Hashable {
-    case detail
+    case detail(StoredPhoto)
     
     var title: String {
         switch self {
@@ -20,8 +20,8 @@ enum AllPhotosFlow: NavigationDestination, Hashable {
     @ViewBuilder
     var destinationView: some View {
         switch self {
-        case .detail:
-            Text("Photo Detail View")
+        case .detail(let photo):
+            PhotoDetailView(photo: photo)
         }
     }
 }

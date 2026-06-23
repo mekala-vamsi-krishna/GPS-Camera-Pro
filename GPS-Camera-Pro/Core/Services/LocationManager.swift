@@ -19,11 +19,11 @@ final class LocationManager: NSObject, ObservableObject {
     @Published var subAddress: String = ""
     @Published var formattedDateTime: String = ""
     @Published var mapSnapshot: UIImage?
-    @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
+    @Published var authorizationStatus: CLAuthorizationStatus
     @Published var locationError: String?
     
     // MARK: - Private
-    private let locationManager = CLLocationManager()
+    private let locationManager: CLLocationManager
     private let geocoder = CLGeocoder()
     private var lastGeocodedLocation: CLLocation?
     private var currentSnapshotter: MKMapSnapshotter?
@@ -42,6 +42,9 @@ final class LocationManager: NSObject, ObservableObject {
     
     // MARK: - Init
     override init() {
+        let manager = CLLocationManager()
+        self.locationManager = manager
+        self.authorizationStatus = manager.authorizationStatus
         super.init()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
@@ -55,7 +58,9 @@ final class LocationManager: NSObject, ObservableObject {
     
     // MARK: - Public Methods
     func requestPermission() {
-        locationManager.requestWhenInUseAuthorization()
+        if locationManager.authorizationStatus == .notDetermined {
+            locationManager.requestWhenInUseAuthorization()
+        }
     }
     
     func startUpdating() {

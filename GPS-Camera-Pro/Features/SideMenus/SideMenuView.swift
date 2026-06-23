@@ -12,14 +12,14 @@ enum SideMenuRowType: Int, CaseIterable {
     case home = 0
     case favorite
     case allPhotos
-    case profile
+    //case profile
     
     var title: String {
         switch self {
         case .home:      return "Home"
         case .favorite:  return "Favorites"
         case .allPhotos: return "All Photos"
-        case .profile:   return "Profile"
+       // case .profile:   return "Profile"
         }
     }
     
@@ -28,7 +28,7 @@ enum SideMenuRowType: Int, CaseIterable {
         case .home:      return "house.fill"
         case .favorite:  return "heart.fill"
         case .allPhotos: return "photo.on.rectangle.angled"
-        case .profile:   return "person.fill"
+       // case .profile:   return "person.fill"
         }
     }
 }

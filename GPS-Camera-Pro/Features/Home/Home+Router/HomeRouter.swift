@@ -12,6 +12,7 @@ import SwiftUI
 enum HomeFlow: NavigationDestination, Hashable {
     case detailHome
     case helpView
+    case confirmPhoto(CapturedPhoto)
     
     var title: String {
         switch self {
@@ -20,6 +21,9 @@ enum HomeFlow: NavigationDestination, Hashable {
         
         case .helpView:
             return "Help view"
+            
+        case .confirmPhoto:
+            return "Confirm Photo"
         
         }
     }
@@ -32,6 +36,9 @@ enum HomeFlow: NavigationDestination, Hashable {
             
         case .helpView:
             Text("Help View")
+            
+        case .confirmPhoto(let captured):
+            PhotoConfirmView(capturedPhoto: captured)
       
         }
     }

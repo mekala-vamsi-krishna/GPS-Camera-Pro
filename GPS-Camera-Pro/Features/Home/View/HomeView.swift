@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct HomeView: View {
     @StateObject private var presenter = HomePresenter()
@@ -66,9 +67,16 @@ struct HomeView: View {
                             }
                         )
                         .transition(.move(edge: .bottom).combined(with: .opacity))
-                    } else {
+                    } else if presenter.authorizationStatus == .notDetermined ||
+                              presenter.authorizationStatus == .denied ||
+                              presenter.authorizationStatus == .restricted {
                         // Location permission prompt
                         locationPermissionPrompt
+                            .transition(.opacity)
+                    } else {
+                        // Authorized but still fetching coordinates/reverse geocoding
+                        locationLoadingCard
+                            .transition(.opacity)
                     }
                     
                     Spacer()
@@ -128,6 +136,7 @@ struct HomeView: View {
             Text(presenter.errorMessage)
         }
         } // NavigationStack
+        .environmentObject(router)
     }
 }
 
@@ -171,6 +180,67 @@ extension HomeView {
                     )
             }
         }
+    }
+    
+    /// Loading skeleton card shown while fetching location
+    private var locationLoadingCard: some View {
+        HStack(alignment: .top, spacing: 8) {
+            VStack(alignment: .leading, spacing: 4) {
+                // Header placeholder
+                HStack(spacing: 4) {
+                    Image(systemName: "camera.fill")
+                        .font(.system(size: 10))
+                        .foregroundColor(.white.opacity(0.4))
+                        .padding(3)
+                        .background(
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(Color.white.opacity(0.1))
+                        )
+                    Text("GPS Camera Pro")
+                        .font(.customFont(.regular, size: 10))
+                        .foregroundColor(.white.opacity(0.4))
+                }
+                
+                // Loading title
+                HStack(spacing: 6) {
+                    ProgressView()
+                        .tint(.white)
+                        .scaleEffect(0.8)
+                    Text("Fetching location...")
+                        .font(.customFont(.semibold, size: 14))
+                        .foregroundColor(.white.opacity(0.7))
+                }
+                .padding(.top, 4)
+                
+                // Coordinates placeholder
+                Text("Waiting for GPS signal...")
+                    .font(.customFont(.regular, size: 11))
+                    .foregroundColor(.white.opacity(0.5))
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
+            // Map placeholder
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color.white.opacity(0.1))
+                .frame(width: 70, height: 70)
+                .overlay(
+                    Image(systemName: "map")
+                        .font(.system(size: 20))
+                        .foregroundColor(.white.opacity(0.3))
+                )
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 10)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.black.opacity(0.65))
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(.ultraThinMaterial)
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+        )
+        .padding(.horizontal, 12)
     }
     
     /// Help button (question mark in circle)
@@ -229,8 +299,12 @@ extension HomeView {
         }
         
         // Capture with overlay compositing
-        presenter.capturePhoto { capturedImage in
+        presenter.capturePhoto(overlayRenderer: { capturedImage in
             return compositeOverlay(onto: capturedImage)
+        }) { captured in
+            if let captured = captured {
+                router.navigate(.confirmPhoto(captured))
+            }
         }
     }
     

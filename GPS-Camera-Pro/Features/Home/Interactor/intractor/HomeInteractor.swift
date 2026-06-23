@@ -43,13 +43,13 @@ final class HomeInteractor: ObservableObject {
     }
     
     func capturePhoto(overlayRenderer: @escaping (UIImage) -> UIImage?,
-                      completion: @escaping (Bool, String?) -> Void) {
+                      completion: @escaping (UIImage?, LocationCardDetailDomain?) -> Void) {
         print(" HomeInteractor: capturePhoto called")
         cameraService.capturePhoto { [weak self] capturedImage in
             guard let self = self,
                   let capturedImage = capturedImage else {
                 print("❌ HomeInteractor: capturedImage is nil")
-                completion(false, "Failed to capture photo")
+                completion(nil, nil)
                 return
             }
             
@@ -58,22 +58,12 @@ final class HomeInteractor: ObservableObject {
             // Composite overlay onto captured image
             guard let composited = overlayRenderer(capturedImage) else {
                 print("❌ HomeInteractor: overlay compositing failed")
-                completion(false, "Failed to composite overlay")
+                completion(nil, nil)
                 return
             }
             
-            print(" HomeInteractor: composited image \(composited.size), saving to gallery...")
-            
-            // Save to gallery
-            self.cameraService.saveImageToGallery(composited) { success, error in
-                if success {
-                    print(" HomeInteractor: photo saved to gallery!")
-                    completion(true, nil)
-                } else {
-                    print("❌ HomeInteractor: save failed - \(error?.localizedDescription ?? "unknown")")
-                    completion(false, error?.localizedDescription ?? "Failed to save photo")
-                }
-            }
+            print(" HomeInteractor: composited image \(composited.size)")
+            completion(composited, self.locationCard)
         }
     }
     

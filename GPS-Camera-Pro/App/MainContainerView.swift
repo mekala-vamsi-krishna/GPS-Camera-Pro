@@ -16,21 +16,19 @@ struct MainContainerView: View {
     
     var body: some View {
         ZStack {
-            // Active feature based on selected tab
-            // Each feature owns its own NavigationStack internally
-            switch appState.selectedTab {
-            case .home:
-                HomeView(presentSideMenu: $presentSideMenu)
-                
-            case .favorite:
-                Favourites(presentSideMenu: $presentSideMenu)
-                
-            case .allPhotos:
-                AllPhotosView(presentSideMenu: $presentSideMenu)
-                
-            case .profile:
-                ProfileView(presentSideMenu: $presentSideMenu)
-            }
+            // All feature views remain alive — hidden via opacity.
+            // This prevents @StateObject deallocation crashes when switching tabs.
+            HomeView(presentSideMenu: $presentSideMenu)
+                .opacity(appState.selectedTab == .home ? 1 : 0)
+                .allowsHitTesting(appState.selectedTab == .home)
+            
+            Favourites(presentSideMenu: $presentSideMenu)
+                .opacity(appState.selectedTab == .favorite ? 1 : 0)
+                .allowsHitTesting(appState.selectedTab == .favorite)
+            
+            AllPhotosView(presentSideMenu: $presentSideMenu)
+                .opacity(appState.selectedTab == .allPhotos ? 1 : 0)
+                .allowsHitTesting(appState.selectedTab == .allPhotos)
             
             // MARK: - Side Menu Overlay (shared across all tabs)
             if presentSideMenu {

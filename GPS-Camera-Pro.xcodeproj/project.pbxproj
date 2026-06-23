@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		697D6ADB95F46FC6252E82A4 /* CapturedPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED536346E4CB5884C048BEE7 /* CapturedPhoto.swift */; };
+		8575FE3AE9084E27ACDEB569 /* PhotoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31ED888017B6B8D22AC470E /* PhotoDetailView.swift */; };
 		CE1174CE2F744E72005CD77A /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1174CB2F744E72005CD77A /* RootView.swift */; };
 		CE1174CF2F744E72005CD77A /* GPS_Camera_ProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1174CC2F744E72005CD77A /* GPS_Camera_ProApp.swift */; };
 		CE1174D02F744E72005CD77A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE1174CA2F744E72005CD77A /* Assets.xcassets */; };
@@ -17,6 +19,12 @@
 		CE1C65242FE5F17100C92862 /* AllPhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C65232FE5F17100C92862 /* AllPhotosView.swift */; };
 		CE1C652E2FE5F41600C92862 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C652D2FE5F41600C92862 /* ProfileView.swift */; };
 		CE1C65302FE5F86B00C92862 /* MainContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C652F2FE5F86B00C92862 /* MainContainerView.swift */; };
+		CE3F2D922FE65749001A0DA5 /* FavouritesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3F2D912FE65748001A0DA5 /* FavouritesRouter.swift */; };
+		CE3F2D952FE6576A001A0DA5 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3F2D932FE6576A001A0DA5 /* ProfileRouter.swift */; };
+		CE3F2D972FE6577E001A0DA5 /* AllPhotosRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3F2D962FE6577E001A0DA5 /* AllPhotosRouter.swift */; };
+		CE3F2D9A2FE658CF001A0DA5 /* FeatureNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3F2D982FE658CF001A0DA5 /* FeatureNavBar.swift */; };
+		CE614DB12FEB0354001FDAA5 /* StoredPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE614DB02FEB0353001FDAA5 /* StoredPhoto.swift */; };
+		CE614DB32FEB036F001FDAA5 /* LocalDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE614DB22FEB036F001FDAA5 /* LocalDBManager.swift */; };
 		CE8E31162F78F019007AAFD5 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31152F78F019007AAFD5 /* HomePresenter.swift */; };
 		CE8E31182F78F028007AAFD5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31172F78F028007AAFD5 /* HomeView.swift */; };
 		CE8E311A2F78F036007AAFD5 /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31192F78F036007AAFD5 /* HomeInteractor.swift */; };
@@ -66,7 +74,6 @@
 		CE8E31862F78FD46007AAFD5 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31852F78FD46007AAFD5 /* NetworkManager.swift */; };
 		CE8E31882F78FD54007AAFD5 /* APIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31872F78FD54007AAFD5 /* APIEndpoints.swift */; };
 		CE8E318A2F78FD5F007AAFD5 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31892F78FD5F007AAFD5 /* APIError.swift */; };
-		CE8E318D2F78FD7F007AAFD5 /* LocalDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E318C2F78FD7F007AAFD5 /* LocalDBManager.swift */; };
 		CE8E31912F78FDCC007AAFD5 /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31902F78FDCC007AAFD5 /* Spacing.swift */; };
 		CE8E31932F78FDD8007AAFD5 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31922F78FDD8007AAFD5 /* Font.swift */; };
 		CE8E31962F790762007AAFD5 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31952F790762007AAFD5 /* HomeRouter.swift */; };
@@ -81,9 +88,11 @@
 		CE8E31AE2F798D63007AAFD5 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31A72F798D63007AAFD5 /* CameraPreviewView.swift */; };
 		CE8E31AF2F798D63007AAFD5 /* CameraBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E31A62F798D63007AAFD5 /* CameraBottomBar.swift */; };
 		CE8E31B12F79AAC2007AAFD5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE8E31B02F79AAC2007AAFD5 /* LaunchScreen.storyboard */; };
+		F7CE07250FA2AC817240C6BD /* PhotoConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744518DE9C37512DECB11E67 /* PhotoConfirmView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		744518DE9C37512DECB11E67 /* PhotoConfirmView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PhotoConfirmView.swift; sourceTree = "<group>"; };
 		CE1174BC2F744E59005CD77A /* GPS-Camera-Pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GPS-Camera-Pro.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1174CA2F744E72005CD77A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE1174CB2F744E72005CD77A /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -95,6 +104,12 @@
 		CE1C65232FE5F17100C92862 /* AllPhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPhotosView.swift; sourceTree = "<group>"; };
 		CE1C652D2FE5F41600C92862 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		CE1C652F2FE5F86B00C92862 /* MainContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContainerView.swift; sourceTree = "<group>"; };
+		CE3F2D912FE65748001A0DA5 /* FavouritesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesRouter.swift; sourceTree = "<group>"; };
+		CE3F2D932FE6576A001A0DA5 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
+		CE3F2D962FE6577E001A0DA5 /* AllPhotosRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPhotosRouter.swift; sourceTree = "<group>"; };
+		CE3F2D982FE658CF001A0DA5 /* FeatureNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureNavBar.swift; sourceTree = "<group>"; };
+		CE614DB02FEB0353001FDAA5 /* StoredPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredPhoto.swift; sourceTree = "<group>"; };
+		CE614DB22FEB036F001FDAA5 /* LocalDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBManager.swift; sourceTree = "<group>"; };
 		CE8E31152F78F019007AAFD5 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		CE8E31172F78F028007AAFD5 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CE8E31192F78F036007AAFD5 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
@@ -144,7 +159,6 @@
 		CE8E31852F78FD46007AAFD5 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		CE8E31872F78FD54007AAFD5 /* APIEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoints.swift; sourceTree = "<group>"; };
 		CE8E31892F78FD5F007AAFD5 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
-		CE8E318C2F78FD7F007AAFD5 /* LocalDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBManager.swift; sourceTree = "<group>"; };
 		CE8E31902F78FDCC007AAFD5 /* Spacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
 		CE8E31922F78FDD8007AAFD5 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		CE8E31952F790762007AAFD5 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
@@ -159,6 +173,8 @@
 		CE8E31A92F798D63007AAFD5 /* DragHintOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragHintOverlay.swift; sourceTree = "<group>"; };
 		CE8E31AA2F798D63007AAFD5 /* GeotagLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeotagLabelView.swift; sourceTree = "<group>"; };
 		CE8E31B02F79AAC2007AAFD5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E31ED888017B6B8D22AC470E /* PhotoDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PhotoDetailView.swift; sourceTree = "<group>"; };
+		ED536346E4CB5884C048BEE7 /* CapturedPhoto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CapturedPhoto.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -346,6 +362,7 @@
 		CE1C65252FE5F22000C92862 /* AllPhotosFlowRouter */ = {
 			isa = PBXGroup;
 			children = (
+				CE3F2D962FE6577E001A0DA5 /* AllPhotosRouter.swift */,
 			);
 			path = AllPhotosFlowRouter;
 			sourceTree = "<group>";
@@ -353,6 +370,7 @@
 		CE1C65262FE5F23500C92862 /* FavouritesFlowRouter */ = {
 			isa = PBXGroup;
 			children = (
+				CE3F2D912FE65748001A0DA5 /* FavouritesRouter.swift */,
 			);
 			path = FavouritesFlowRouter;
 			sourceTree = "<group>";
@@ -365,6 +383,7 @@
 				CE1C65282FE5F3BF00C92862 /* Intractor */,
 				CE1C652B2FE5F3DD00C92862 /* View */,
 				CE1C652C2FE5F3E300C92862 /* Components */,
+				CE3F2D942FE6576A001A0DA5 /* ProfileFlowRouter */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -405,6 +424,14 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		CE3F2D942FE6576A001A0DA5 /* ProfileFlowRouter */ = {
+			isa = PBXGroup;
+			children = (
+				CE3F2D932FE6576A001A0DA5 /* ProfileRouter.swift */,
+			);
+			path = ProfileFlowRouter;
+			sourceTree = "<group>";
+		};
 		CE8E310E2F78EF8C007AAFD5 /* Features */ = {
 			isa = PBXGroup;
 			children = (
@@ -436,6 +463,7 @@
 			children = (
 				CE8E31172F78F028007AAFD5 /* HomeView.swift */,
 				CE8E31972F790795007AAFD5 /* HomeDetailView.swift */,
+				744518DE9C37512DECB11E67 /* PhotoConfirmView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -461,6 +489,7 @@
 			isa = PBXGroup;
 			children = (
 				CE8E311B2F78F05E007AAFD5 /* LocationCardDetailDomain.swift */,
+				ED536346E4CB5884C048BEE7 /* CapturedPhoto.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -598,7 +627,9 @@
 		CE8E31812F78F82D007AAFD5 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				CE3F2D982FE658CF001A0DA5 /* FeatureNavBar.swift */,
 				CE8E31822F78F84D007AAFD5 /* PrimaryButtonStyle.swift */,
+				E31ED888017B6B8D22AC470E /* PhotoDetailView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -616,7 +647,8 @@
 		CE8E318B2F78FD6C007AAFD5 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				CE8E318C2F78FD7F007AAFD5 /* LocalDBManager.swift */,
+				CE614DB02FEB0353001FDAA5 /* StoredPhoto.swift */,
+				CE614DB22FEB036F001FDAA5 /* LocalDBManager.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -736,7 +768,6 @@
 			packageReferences = (
 				CE8E311F2F78F23A007AAFD5 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
-			preferredProjectObjectVersion = 77;
 			productRefGroup = CE1174BD2F744E59005CD77A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -802,6 +833,7 @@
 				CE8E31882F78FD54007AAFD5 /* APIEndpoints.swift in Sources */,
 				CE1174CE2F744E72005CD77A /* RootView.swift in Sources */,
 				CE8E31AB2F798D63007AAFD5 /* GeotagLabelView.swift in Sources */,
+				CE3F2D9A2FE658CF001A0DA5 /* FeatureNavBar.swift in Sources */,
 				CE8E31AC2F798D63007AAFD5 /* CameraTopBar.swift in Sources */,
 				CE8E31AD2F798D63007AAFD5 /* DragHintOverlay.swift in Sources */,
 				CE8E31AE2F798D63007AAFD5 /* CameraPreviewView.swift in Sources */,
@@ -809,7 +841,7 @@
 				CE1C65082FE5DEE700C92862 /* SideMenuView.swift in Sources */,
 				CE1C65242FE5F17100C92862 /* AllPhotosView.swift in Sources */,
 				CE8E312F2F78F584007AAFD5 /* Date+Extension.swift in Sources */,
-				CE8E318D2F78FD7F007AAFD5 /* LocalDBManager.swift in Sources */,
+				CE614DB32FEB036F001FDAA5 /* LocalDBManager.swift in Sources */,
 				CE8E31932F78FDD8007AAFD5 /* Font.swift in Sources */,
 				CE8E31312F78F5AC007AAFD5 /* Font+Extension.swift in Sources */,
 				CE1174D92F7450A6005CD77A /* Colors.swift in Sources */,
@@ -820,7 +852,11 @@
 				CE8E31962F790762007AAFD5 /* HomeRouter.swift in Sources */,
 				CE8E311E2F78F1DF007AAFD5 /* Router.swift in Sources */,
 				CE1C651C2FE5F0BC00C92862 /* Favourites.swift in Sources */,
+				CE614DB12FEB0354001FDAA5 /* StoredPhoto.swift in Sources */,
+				CE3F2D972FE6577E001A0DA5 /* AllPhotosRouter.swift in Sources */,
+				CE3F2D952FE6576A001A0DA5 /* ProfileRouter.swift in Sources */,
 				CE8E31832F78F84D007AAFD5 /* PrimaryButtonStyle.swift in Sources */,
+				CE3F2D922FE65749001A0DA5 /* FavouritesRouter.swift in Sources */,
 				CE8E312D2F78F454007AAFD5 /* LocationCardDetailDTO.swift in Sources */,
 				CE8E31912F78FDCC007AAFD5 /* Spacing.swift in Sources */,
 				CE8E31182F78F028007AAFD5 /* HomeView.swift in Sources */,
@@ -834,6 +870,9 @@
 				CE1C65302FE5F86B00C92862 /* MainContainerView.swift in Sources */,
 				CE8E311A2F78F036007AAFD5 /* HomeInteractor.swift in Sources */,
 				CE8E319F2F790E94007AAFD5 /* topBarCard.swift in Sources */,
+				697D6ADB95F46FC6252E82A4 /* CapturedPhoto.swift in Sources */,
+				F7CE07250FA2AC817240C6BD /* PhotoConfirmView.swift in Sources */,
+				8575FE3AE9084E27ACDEB569 /* PhotoDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

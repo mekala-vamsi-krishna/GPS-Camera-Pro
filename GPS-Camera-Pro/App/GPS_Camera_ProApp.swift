@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct GPS_Camera_ProApp: App {
@@ -16,7 +17,8 @@ struct GPS_Camera_ProApp: App {
         WindowGroup {
             RootView()
                 .environmentObject(appState)
-        }.onChange(of: scenePhase) {  newPhase in
+                .modelContainer(for: StoredPhoto.self)
+        }.onChange(of: scenePhase) { _,  newPhase in
             switch newPhase {
             case .active :
                 /// App is in the foreground and interactive

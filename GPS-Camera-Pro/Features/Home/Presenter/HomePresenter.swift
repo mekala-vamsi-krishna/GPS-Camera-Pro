@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import UIKit
+import CoreLocation
 
 final class HomePresenter: ObservableObject {
     
@@ -19,6 +20,7 @@ final class HomePresenter: ObservableObject {
     @Published var isCaptureInProgress: Bool = false
     @Published var showDragHint: Bool = false
     @Published var showCaptureSuccess: Bool = false
+    @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
     
     // MARK: - Interactor
     let interactor: HomeInteractor
@@ -48,21 +50,19 @@ final class HomePresenter: ObservableObject {
         interactor.onDisappear()
     }
     
-    func capturePhoto(overlayRenderer: @escaping (UIImage) -> UIImage?) {
+    func capturePhoto(overlayRenderer: @escaping (UIImage) -> UIImage?, completion: @escaping (CapturedPhoto?) -> Void) {
         isCaptureInProgress = true
         
-        interactor.capturePhoto(overlayRenderer: overlayRenderer) { [weak self] success, error in
+        interactor.capturePhoto(overlayRenderer: overlayRenderer) { [weak self] compositedImage, location in
             DispatchQueue.main.async {
                 self?.isCaptureInProgress = false
-                if success {
-                    self?.showCaptureSuccess = true
-                    // Auto-dismiss after 2 seconds
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        self?.showCaptureSuccess = false
-                    }
+                if let image = compositedImage {
+                    let captured = CapturedPhoto(image: image, location: location)
+                    completion(captured)
                 } else {
                     self?.isError = true
-                    self?.errorMessage = error ?? "Failed to capture photo"
+                    self?.errorMessage = "Failed to capture photo"
+                    completion(nil)
                 }
             }
         }
@@ -80,6 +80,11 @@ final class HomePresenter: ObservableObject {
         interactor.$locationCard
             .receive(on: DispatchQueue.main)
             .assign(to: &$locationCard)
+            
+        // Forward location authorization status
+        interactor.locationManager.$authorizationStatus
+            .receive(on: DispatchQueue.main)
+            .assign(to: &$authorizationStatus)
         
         // Forward capture state
         interactor.cameraService.$isCaptureInProgress

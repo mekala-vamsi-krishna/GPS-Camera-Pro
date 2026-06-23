@@ -44,7 +44,11 @@ final class CameraService: NSObject, ObservableObject {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
             permissionGranted = true
-            setupSession()
+            if sessionIsConfigured {
+                startSession()
+            } else {
+                setupSession()
+            }
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
                 DispatchQueue.main.async {

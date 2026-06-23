@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK: - Favourites Flow Navigation Enum
 enum FavouritesFlow: NavigationDestination, Hashable {
-    case detail
+    case detail(StoredPhoto)
     
     var title: String {
         switch self {
@@ -20,8 +20,8 @@ enum FavouritesFlow: NavigationDestination, Hashable {
     @ViewBuilder
     var destinationView: some View {
         switch self {
-        case .detail:
-            Text("Favorite Detail View")
+        case .detail(let photo):
+            PhotoDetailView(photo: photo)
         }
     }
 }
